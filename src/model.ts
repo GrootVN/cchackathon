@@ -79,6 +79,33 @@ export const team = [
   "Alex Rivera · Physical therapist",
   "Sam Wilson · Care coordinator",
 ];
+// Fictional handoff examples; statuses are stored separately so existing demos migrate safely.
+export const documentedConcerns = [
+  {
+    id: "allergy",
+    category: "Allergy",
+    title: "Reported penicillin allergy",
+    detail:
+      "Family reports a previous rash. Allergy history needs care-team confirmation.",
+    owner: "Jamie Chen · Nursing handoff · Nov 6, 07:00",
+  },
+  {
+    id: "medication-reaction",
+    category: "Medication reaction",
+    title: "Itching after a medicine dose",
+    detail:
+      "Family reported itching after an overnight dose. Medication and reaction details await clinician review.",
+    owner: "Dr. Maya Patel · Rounds review · Nov 6, 09:00",
+  },
+  {
+    id: "nausea",
+    category: "Symptom review",
+    title: "Overnight nausea requires review",
+    detail:
+      "One episode documented. Bedside nurse requested discussion during rounds.",
+    owner: "Jamie Chen · Nursing handoff · Nov 6, 06:45",
+  },
+];
 export const events: CareEvent[] = [
   {
     id: "admit",
@@ -211,7 +238,12 @@ export const initialState: State = {
   badges: [],
   discharge: "2026-11-08",
   eventNotes: {},
-  concerns: { nausea: "Open", transfer: "Resolved" },
+  concerns: {
+    allergy: "Open",
+    "medication-reaction": "Open",
+    nausea: "Open",
+    transfer: "Resolved",
+  },
   concernHistory: [],
   questions: [
     {
@@ -532,6 +564,14 @@ export function visibleFollowups(actions: CareAction[]) {
   return actions.filter(
     (a) =>
       a.due >= TODAY && a.status !== "Completed" && a.status !== "Archived",
+  );
+}
+export function activeHighPriorityActions(actions: CareAction[]) {
+  return actions.filter(
+    (a) =>
+      a.priority === "High" &&
+      a.status !== "Completed" &&
+      a.status !== "Archived",
   );
 }
 export function recentEvents() {

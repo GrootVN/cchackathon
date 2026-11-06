@@ -35,6 +35,8 @@ import {
 } from "lucide-react";
 import {
   familyOwners,
+  documentedConcerns,
+  activeHighPriorityActions,
   initialState,
   reducer,
   events,
@@ -61,6 +63,7 @@ function readState(): State {
       Array.isArray(s.priorities)
       ? {
           ...s,
+          concerns: { ...initialState.concerns, ...s.concerns },
           priorities: s.priorities.some(
             (p: { id: string }) => p.id === "question-time",
           )
@@ -472,14 +475,6 @@ export default function App() {
             <BookOpen />
             <span>My condition</span>
           </button>
-          <button
-            className="nav-item"
-            onClick={() => setModal({ kind: "stars" })}
-            aria-label="Discovery stars"
-          >
-            <Star />
-            <span>Discovery stars</span>
-          </button>
         </nav>
         <div className="sidebar-bottom">
           <div className="together-card">
@@ -691,66 +686,122 @@ export default function App() {
                       title="Active concerns"
                       subtitle="Documented concerns, with clear ownership."
                     />
-                    <div className="concern">
-                      <div className="row between">
-                        <Badge tone="amber">Team-assigned priority</Badge>
-                        <Badge
-                          tone={
-                            state.concerns.nausea === "Resolved"
-                              ? "green"
-                              : "amber"
-                          }
-                        >
-                          {state.concerns.nausea}
-                        </Badge>
-                      </div>
-                      <h3>Overnight nausea requires review</h3>
-                      <p>
-                        One episode documented. Bedside nurse requested
-                        discussion during rounds; no urgency inferred by this
-                        app.
-                      </p>
-                      <div className="micro">
-                        Jamie Chen · Nursing handoff · Nov 6, 06:45
-                      </div>
-                      <div className="row">
-                        <button
-                          className="text-button"
-                          onClick={() =>
-                            mutate(
-                              {
-                                type: "concern",
-                                id: "nausea",
-                                status: "Acknowledged",
-                              },
-                              "Acknowledgment saved with history",
-                            )
-                          }
-                        >
-                          Acknowledge
-                        </button>
-                        <button
-                          className="text-button"
-                          onClick={() =>
-                            mutate(
-                              {
-                                type: "concern",
-                                id: "nausea",
-                                status:
-                                  state.concerns.nausea === "Resolved"
-                                    ? "Open"
-                                    : "Resolved",
-                              },
-                              "Concern status updated with history",
-                            )
-                          }
-                        >
-                          {state.concerns.nausea === "Resolved"
-                            ? "Reopen"
-                            : "Resolve"}
-                        </button>
-                      </div>
+                    <div
+                      className="concerns-list scroll-panel"
+                      role="region"
+                      aria-label="Active concerns"
+                      tabIndex={0}
+                    >
+                      {documentedConcerns
+                        .filter((c) => state.concerns[c.id] !== "Resolved")
+                        .map((c) => (
+                          <article className="concern" key={c.id}>
+                            <div className="row between">
+                              <Badge tone="amber">{c.category}</Badge>
+                              <Badge tone="purple">
+                                {state.concerns[c.id]}
+                              </Badge>
+                            </div>
+                            <h3>{c.title}</h3>
+                            <p>{c.detail}</p>
+                            <div className="micro">{c.owner}</div>
+                            <div className="row">
+                              <button
+                                className="text-button"
+                                disabled={
+                                  state.concerns[c.id] === "Acknowledged"
+                                }
+                                onClick={() =>
+                                  mutate(
+                                    {
+                                      type: "concern",
+                                      id: c.id,
+                                      status: "Acknowledged",
+                                    },
+                                    "Acknowledgment saved with history",
+                                  )
+                                }
+                              >
+                                {state.concerns[c.id] === "Acknowledged"
+                                  ? "Acknowledged"
+                                  : "Acknowledge"}
+                              </button>
+                              <button
+                                className="text-button"
+                                onClick={() =>
+                                  mutate(
+                                    {
+                                      type: "concern",
+                                      id: c.id,
+                                      status: "Resolved",
+                                    },
+                                    "Concern resolved with history",
+                                  )
+                                }
+                              >
+                                Resolve
+                              </button>
+                            </div>
+                          </article>
+                        ))}
+                      {activeHighPriorityActions(state.actions).map((a) => (
+                        <article className="concern" key={`action-${a.id}`}>
+                          <div className="row between">
+                            <Badge tone="amber">High priority action</Badge>
+                            <Badge tone="purple">{actionStatus(a)}</Badge>
+                          </div>
+                          <h3>{a.title}</h3>
+                          {a.notes && <p>{a.notes}</p>}
+                          <div className="micro">
+                            {a.owner} · Due {dateLabel(a.due)}
+                          </div>
+                          <button
+                            className="text-button"
+                            onClick={() =>
+                              setModal({ kind: "action", id: a.id })
+                            }
+                          >
+                            Review action <ArrowRight size={14} />
+                          </button>
+                        </article>
+                      ))}
+                      {documentedConcerns.every(
+                        (c) => state.concerns[c.id] === "Resolved",
+                      ) &&
+                        !activeHighPriorityActions(state.actions).length && (
+                          <p className="empty">No active concerns right now.</p>
+                        )}
                     </div>
+                    <details className="history">
+                      <summary>
+                        Resolved concerns (
+                        {
+                          documentedConcerns.filter(
+                            (c) => state.concerns[c.id] === "Resolved",
+                          ).length
+                        }
+                        )
+                      </summary>
+                      {documentedConcerns
+                        .filter((c) => state.concerns[c.id] === "Resolved")
+                        .map((c) => (
+                          <div className="resolved-note" key={c.id}>
+                            <Check size={16} />
+                            <strong>{c.title}</strong>
+                            <button
+                              className="text-button"
+                              onClick={() =>
+                                mutate(
+                                  { type: "concern", id: c.id, status: "Open" },
+                                  "Concern reopened",
+                                )
+                              }
+                            >
+                              Reopen
+                            </button>
+                          </div>
+                        ))}
+                    </details>
                     <div className="resolved-note">
                       <Check size={16} />
                       <div>
@@ -785,7 +836,12 @@ export default function App() {
                       <option>Needs follow-up</option>
                     </select>
                   </SectionTitle>
-                  <div className="news-list">
+                  <div
+                    className="news-list scroll-panel"
+                    role="region"
+                    aria-label="What’s new"
+                    tabIndex={0}
+                  >
                     {!family &&
                       state.actions
                         .filter(
@@ -1174,7 +1230,7 @@ export default function App() {
                     onClick={() => setModal({ kind: "stars" })}
                   >
                     <Star size={16} />
-                    {state.stars} stars · Treat shop
+                    Exchange rewards · {state.stars} stars
                   </button>
                   <button
                     className="button secondary"
@@ -1368,7 +1424,7 @@ export default function App() {
                     onClick={() => setModal({ kind: "stars" })}
                   >
                     <Star size={16} fill="currentColor" />
-                    {state.stars} discovery stars
+                    Exchange rewards · {state.stars} stars
                   </button>
                 </SectionTitle>
                 <div className="discovery-grid">
@@ -1502,7 +1558,7 @@ export default function App() {
         <Dialog
           title={
             modal.kind === "stars"
-              ? "My discovery stars"
+              ? "Exchange rewards"
               : modal.kind === "conditions"
                 ? "Understanding my care"
                 : modal.kind === "access"

@@ -5,8 +5,59 @@ import {
   visibleFollowups,
   actionStatus,
   recentEvents,
+  activeHighPriorityActions,
 } from "./model";
 describe("connected bedside workflows", () => {
+  it("includes new and edited High priority actions in active concerns", () => {
+    const action = {
+      ...initialState.actions[0],
+      id: "new-high-priority",
+      priority: "High",
+    };
+    const next = reducer(initialState, { type: "action", action });
+    expect(activeHighPriorityActions(next.actions).map((a) => a.id)).toContain(
+      action.id,
+    );
+    const routine = reducer(next, {
+      type: "action",
+      action: { ...action, priority: "Routine" },
+    });
+    expect(
+      activeHighPriorityActions(routine.actions).map((a) => a.id),
+    ).not.toContain(action.id);
+  });
+  it("keeps overdue High priority concerns and removes completed or archived ones", () => {
+    const actions = [
+      "Open",
+      "In Progress",
+      "Awaiting Follow-Up",
+      "Completed",
+      "Archived",
+    ].map((status, i) => ({
+      ...initialState.actions[0],
+      id: String(i),
+      priority: "High",
+      due: "2026-11-01",
+      status: status as (typeof initialState.actions)[number]["status"],
+    }));
+    expect(activeHighPriorityActions(actions).map((a) => a.id)).toEqual([
+      "0",
+      "1",
+      "2",
+    ]);
+  });
+  it("tracks allergy and medication-reaction concern changes independently", () => {
+    const next = reducer(initialState, {
+      type: "concern",
+      id: "medication-reaction",
+      status: "Acknowledged",
+    });
+    expect(next.concerns["medication-reaction"]).toBe("Acknowledged");
+    expect(next.concerns.allergy).toBe("Open");
+    expect(next.concernHistory.at(-1)).toContain(
+      "medication-reaction: Acknowledged",
+    );
+  });
   it("exchanges stars immediately and prevents overspending", () => {
     const exchanged = reducer(initialState, {
       type: "redeem",

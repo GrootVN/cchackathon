@@ -1938,6 +1938,28 @@ blockquote {
   flex-direction: column;
   gap: 5px;
 }
+.scroll-panel {
+  max-height: 390px;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #a48bc9 #f4eff9;
+  scrollbar-gutter: stable;
+  padding-right: 10px;
+}
+.scroll-panel:focus-visible {
+  outline: 3px solid #8d72d7;
+  outline-offset: 4px;
+  border-radius: 10px;
+}
+.concerns-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.concerns-list .concern {
+  flex-shrink: 0;
+}
 .news-item {
   display: flex;
   align-items: flex-start;
@@ -3803,4 +3825,123 @@ p {
   .form-grid {
     grid-template-columns: 1fr;
   }
+}
+/* Family view: a colorful adventure journal, with calm, readable care information. */
+.app:not(.clinical) {
+  --border: #e7ddef;
+  --purple: #7050c7;
+  background:
+    radial-gradient(circle at 90% 8%, #e4d8fc 0, transparent 30%),
+    radial-gradient(circle at 5% 55%, #ffead0 0, transparent 36%), #fff9f0;
+}
+.app:not(.clinical) .sidebar {
+  background: #fff5e5;
+  border-right-color: #eedfc9;
+}
+.app:not(.clinical) .topbar {
+  background: #fffaf1;
+  border-bottom-color: #eedfc9;
+}
+.app:not(.clinical) .brand-icon {
+  background: #7853cd;
+  border-radius: 14px 14px 14px 5px;
+}
+.app:not(.clinical) .nav-item.active {
+  background: #e5d8ff;
+  color: #553796;
+  box-shadow: inset 4px 0 #8962d4;
+  border-radius: 14px;
+}
+.app:not(.clinical) .together-card {
+  background: #ffebae;
+  border-color: #f2d681;
+  border-radius: 22px 22px 22px 6px;
+}
+.app:not(.clinical) .hero {
+  border: 2px solid #bfcfe8;
+  border-radius: 28px;
+  box-shadow: 0 7px 0 #dce6ed;
+  margin-bottom: 30px;
+}
+.app:not(.clinical) .hero.theme-sky {
+  background: linear-gradient(115deg, #d6eaff, #e2e1ff 65%, #f8dcea);
+}
+.app:not(.clinical) .hero.theme-space {
+  background: radial-gradient(circle at 80% 15%, #f7d4ed, #d6ccfa 55%, #e0e5ff);
+  border-color: #bfade2;
+}
+.app:not(.clinical) .hero.theme-garden {
+  background: linear-gradient(115deg, #d3efce, #c9eadd, #fff0ba);
+  border-color: #add6b6;
+}
+.app:not(.clinical) .hero-pill {
+  color: #594180;
+  background: #fff6d1;
+  letter-spacing: 1px;
+}
+.app:not(.clinical) .hero-content h2 {
+  color: #443268;
+}
+.app:not(.clinical) .hero-content p {
+  color: #584c76;
+}
+.app:not(.clinical) .hero-notes .note {
+  background: #fff8d9;
+  border: 1px solid #eddda8;
+  border-radius: 8px 20px 20px 20px;
+  box-shadow: 0 4px 0 #8778ab12;
+}
+.app:not(.clinical) .card {
+  border-radius: 24px;
+  box-shadow: 0 5px 0 #8d6eab0a;
+}
+.app:not(.clinical) .journey-card {
+  background: #f0fbf4;
+  border-color: #c7e4d0;
+}
+.app:not(.clinical) .priorities-card {
+  background: #fffcf2;
+  border-color: #edddb0;
+}
+.app:not(.clinical) .priority-icon {
+  border-radius: 16px;
+}
+.app:not(.clinical) .messages-card {
+  background: #fcf4ff;
+  border-color: #e6cfed;
+}
+.app:not(.clinical) .ask-card {
+  background: #f0e3fc;
+  border-radius: 22px;
+}
+.app:not(.clinical) .stars-count {
+  min-height: 44px;
+  background: #ffecad;
+  color: #6d4b15;
+  border: 1px solid #e5c46a;
+  border-radius: 16px;
+  padding: 10px 14px;
+  white-space: normal;
+}
+.app:not(.clinical) .hero-customize .button,
+.app:not(.clinical) .button.primary {
+  border-radius: 14px;
+  min-height: 44px;
+}
+.app:not(.clinical) .discovery-card {
+  border-radius: 24px;
+  border-color: #dfd2e9;
+  overflow: hidden;
+}
+.app:not(.clinical) .heart-discovery .discovery-art {
+  background: #f8d8e2;
+  color: #aa4468;
+}
+.app:not(.clinical) .sky-discovery .discovery-art {
+  background: #d7eaff;
+  color: #427ab3;
+}
+.app:not(.clinical) .quest-discovery .discovery-art {
+  background: #ffe9ad;
+  color: #8f651e;
 }
