@@ -3,6 +3,7 @@ export const DEMO_TIME = "2026-11-06T10:30:00";
 export type Status =
   "Open" | "In Progress" | "Awaiting Follow-Up" | "Completed" | "Archived";
 export interface CareAction {
+  medical?: boolean;
   id: string;
   title: string;
   owner: string;
@@ -17,6 +18,7 @@ export interface CareAction {
   history: string[];
 }
 export interface Question {
+  receiver?: string;
   id: string;
   text: string;
   status: "Submitted" | "Reviewed" | "Answered";
@@ -33,6 +35,8 @@ export interface CareNote {
   history: string[];
 }
 export interface Priority {
+  medical?: boolean;
+  completed?: boolean;
   id: string;
   title: string;
   detail: string;
@@ -54,6 +58,8 @@ export interface CareEvent {
   verified: boolean;
 }
 export interface State {
+  redemptions?: { id: string; title: string; cost: number; time: string }[];
+  theme?: string;
   version: number;
   tasks: string[];
   questions: Question[];
@@ -228,6 +234,14 @@ export const initialState: State = {
   ],
   priorities: [
     {
+      id: "question-time",
+      title: "Write down my questions",
+      detail: "A quiet moment to prepare for our next conversation.",
+      time: "10:30",
+      approved: true,
+      medical: false,
+    },
+    {
       id: "rounds",
       title: "Say hello to your team",
       detail: "Let’s talk about your day together.",
@@ -295,7 +309,10 @@ export const initialState: State = {
 };
 export type Mutation =
   | { type: "task"; id: string }
-  | { type: "ask"; text: string }
+  | { type: "ask"; text: string; receiver?: string }
+  | { type: "redeem"; rewardId: string }
+  | { type: "theme"; theme: string }
+  | { type: "complete-personal"; id: string; target: "priority" | "action" }
   | { type: "answer"; id: string; text: string }
   | { type: "review"; id: string }
   | { type: "note"; id?: string; text: string; clinical?: boolean }
@@ -307,6 +324,7 @@ export type Mutation =
       detail: string;
       time: string;
       approved: boolean;
+      medical?: boolean;
     }
   | { type: "view-plan" }
   | { type: "concern"; id: string; status: string }
@@ -318,6 +336,49 @@ const uid = () => crypto.randomUUID();
 const now = () => new Date().toISOString();
 export function reducer(state: State, m: Mutation): State {
   switch (m.type) {
+    case "theme":
+      return { ...state, theme: m.theme };
+    case "redeem": {
+      const reward = rewards.find((r) => r.id === m.rewardId);
+      if (!reward || state.stars < reward.cost) return state;
+      return {
+        ...state,
+        stars: state.stars - reward.cost,
+        redemptions: [
+          ...(state.redemptions || []),
+          { ...reward, id: uid(), time: now() },
+        ],
+      };
+    }
+    case "complete-personal": {
+      if (m.target === "priority")
+        return {
+          ...state,
+          priorities: state.priorities.map((p) =>
+            p.id === m.id && p.medical === false
+              ? { ...p, completed: !p.completed }
+              : p,
+          ),
+        };
+      return {
+        ...state,
+        actions: state.actions.map((a) =>
+          a.id === m.id &&
+          a.medical === false &&
+          familyOwners.includes(a.owner) &&
+          a.status !== "Archived"
+            ? {
+                ...a,
+                status: a.status === "Completed" ? "Open" : "Completed",
+                history: [
+                  ...a.history,
+                  `Family updated nonmedical task at ${now()}`,
+                ],
+              }
+            : a,
+        ),
+      };
+    }
     case "reset":
       return structuredClone(initialState);
     case "task":
@@ -336,6 +397,7 @@ export function reducer(state: State, m: Mutation): State {
               {
                 id: uid(),
                 text: m.text.trim(),
+                receiver: m.receiver || "My whole care team",
                 status: "Submitted",
                 created: now(),
               },
@@ -412,6 +474,7 @@ export function reducer(state: State, m: Mutation): State {
         detail: m.detail.trim(),
         time: m.time,
         approved: m.approved,
+        medical: m.medical !== false,
         viewed: false,
       };
       return {
@@ -468,10 +531,7 @@ export function actionStatus(a: CareAction) {
 export function visibleFollowups(actions: CareAction[]) {
   return actions.filter(
     (a) =>
-      a.eventId &&
-      a.due >= TODAY &&
-      a.status !== "Completed" &&
-      a.status !== "Archived",
+      a.due >= TODAY && a.status !== "Completed" && a.status !== "Archived",
   );
 }
 export function recentEvents() {
@@ -485,3 +545,10 @@ export function dateLabel(date: string) {
     day: "numeric",
   });
 }
+
+export const familyOwners = ["Oliver · Patient", "Parent / guardian"];
+export const rewards = [
+  { id: "stickers", title: "Adventure stickers", cost: 2, icon: "🌟" },
+  { id: "soldiers", title: "Toy army figures", cost: 3, icon: "🪖" },
+  { id: "candy", title: "A small candy treat", cost: 5, icon: "🍬" },
+];

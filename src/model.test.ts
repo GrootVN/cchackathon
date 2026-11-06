@@ -7,6 +7,70 @@ import {
   recentEvents,
 } from "./model";
 describe("connected bedside workflows", () => {
+  it("exchanges stars immediately and prevents overspending", () => {
+    const exchanged = reducer(initialState, {
+      type: "redeem",
+      rewardId: "stickers",
+    });
+    expect(exchanged.stars).toBe(0);
+    expect(exchanged.redemptions).toHaveLength(1);
+    expect(reducer(exchanged, { type: "redeem", rewardId: "stickers" })).toBe(
+      exchanged,
+    );
+  });
+  it("never lets family checkoffs complete medical priorities", () => {
+    const next = reducer(initialState, {
+      type: "complete-personal",
+      target: "priority",
+      id: "echo",
+    });
+    expect(next.priorities.find((p) => p.id === "echo")?.completed).not.toBe(
+      true,
+    );
+  });
+  it("allows only explicitly nonmedical family-owned actions to be checked off", () => {
+    const fixture = {
+      ...initialState,
+      actions: [
+        {
+          ...initialState.actions[0],
+          owner: "Parent / guardian",
+          medical: false,
+        },
+      ],
+    };
+    const next = reducer(fixture, {
+      type: "complete-personal",
+      target: "action",
+      id: fixture.actions[0].id,
+    });
+    expect(next.actions[0].status).toBe("Completed");
+    expect(next.actions[0].history.at(-1)).toContain("Family updated");
+    const medical = {
+      ...fixture,
+      actions: [{ ...fixture.actions[0], medical: true }],
+    };
+    expect(
+      reducer(medical, {
+        type: "complete-personal",
+        target: "action",
+        id: fixture.actions[0].id,
+      }).actions[0].status,
+    ).toBe(medical.actions[0].status);
+  });
+  it("keeps standalone actions in upcoming timeline follow-ups", () => {
+    expect(
+      visibleFollowups([{ ...initialState.actions[0], eventId: "" }]),
+    ).toHaveLength(1);
+  });
+  it("preserves the selected receiver on family questions", () => {
+    const next = reducer(initialState, {
+      type: "ask",
+      text: "A question for my nurse",
+      receiver: "Jamie Chen · Bedside nurse",
+    });
+    expect(next.questions.at(-1)?.receiver).toBe("Jamie Chen · Bedside nurse");
+  });
   it("keeps a submitted question and clinical answer in one shared record", () => {
     const asked = reducer(initialState, {
       type: "ask",

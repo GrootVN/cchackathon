@@ -91,7 +91,7 @@ button svg {
   pointer-events: none;
 }
 small {
-  font-size: 11px;
+  font-size: 12px;
 }
 strong {
   font-weight: 650;
@@ -136,7 +136,7 @@ strong {
   color: var(--purple);
 }
 .workspace-label {
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 650;
   letter-spacing: 1.8px;
   color: #9b99ae;
@@ -183,7 +183,7 @@ strong {
   height: 19px;
   display: grid;
   place-items: center;
-  font-size: 10px;
+  font-size: 12px;
 }
 .sidebar-bottom {
   margin-top: auto;
@@ -207,7 +207,7 @@ strong {
   font-size: 12px;
 }
 .together-card > p {
-  font-size: 11px;
+  font-size: 12px;
   color: #8c869c;
   line-height: 1.8;
   margin: 7px 0 10px;
@@ -216,7 +216,7 @@ strong {
   border: 0;
   background: transparent;
   color: var(--purple);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 650;
   display: inline-flex;
   gap: 7px;
@@ -233,7 +233,7 @@ strong {
   align-items: center;
   color: #8a879b;
   gap: 9px;
-  font-size: 11px;
+  font-size: 12px;
   padding: 8px;
   width: 100%;
 }
@@ -254,7 +254,7 @@ strong {
 .hospital-mark small {
   display: block;
   font-family: "DM Sans", sans-serif;
-  font-size: 8px;
+  font-size: 12px;
   color: #959aa7;
   margin-top: 4px;
   letter-spacing: 0.3px;
@@ -280,7 +280,7 @@ strong {
   display: flex;
   align-items: center;
   gap: 13px;
-  font-size: 11px;
+  font-size: 12px;
   color: #95919f;
 }
 .breadcrumb strong {
@@ -296,7 +296,7 @@ strong {
   display: flex;
   gap: 7px;
   align-items: center;
-  font-size: 10px;
+  font-size: 12px;
   color: #8a8497;
 }
 .demo-label > span {
@@ -338,14 +338,14 @@ strong {
   justify-content: center;
   flex-shrink: 0;
   border-radius: 50%;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 650;
   border: 3px solid white;
 }
 .avatar.small {
   width: 32px;
   height: 32px;
-  font-size: 9px;
+  font-size: 12px;
   border-width: 2px;
 }
 .purple,
@@ -391,7 +391,7 @@ main {
   margin-bottom: 26px;
 }
 .eyebrow {
-  font-size: 9px;
+  font-size: 12px;
   letter-spacing: 1.3px;
   color: #9993a4;
   font-weight: 550;
@@ -401,7 +401,7 @@ main {
   margin-bottom: 10px;
 }
 .eyebrow > span {
-  font-size: 9px;
+  font-size: 12px;
   color: #c3b4dc;
 }
 h1 {
@@ -417,7 +417,7 @@ h1 {
 }
 .page-heading p {
   color: #8c8597;
-  font-size: 11px;
+  font-size: 12px;
   margin-top: 8px;
 }
 .heading-actions {
@@ -433,7 +433,7 @@ h1 {
   gap: 9px;
   padding: 11px 16px;
   border-radius: 24px;
-  font-size: 11px;
+  font-size: 12px;
   min-height: 41px;
   font-weight: 600;
   white-space: nowrap;
@@ -460,7 +460,7 @@ h1 {
   border-color: #e9e0fa;
 }
 .tiny {
-  font-size: 10px;
+  font-size: 12px;
   padding: 8px 13px;
   min-height: 34px;
 }
@@ -486,7 +486,7 @@ h1 {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 1.45px;
   color: #8677a3;
@@ -512,7 +512,7 @@ h1 {
   color: #51466e;
 }
 .hero-content p {
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.8;
   color: #8e81a5;
   margin-top: 12px;
@@ -526,7 +526,7 @@ h1 {
   color: #7c63ae;
   padding: 0;
   margin-top: 18px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 650;
 }
 .sky-art {
@@ -541,7 +541,7 @@ h1 {
   position: absolute;
   right: 69px;
   bottom: 22px;
-  font-size: 9px;
+  font-size: 12px;
   color: #998daf;
   letter-spacing: 0.25px;
   display: flex;
@@ -582,14 +582,14 @@ h1 {
 }
 .section-title p {
   color: #9c95a5;
-  font-size: 10px;
+  font-size: 12px;
   margin-top: 6px;
 }
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 550;
   line-height: 1.4;
   padding: 5px 9px;
@@ -650,14 +650,14 @@ h1 {
   box-shadow: none;
 }
 .journey-stop strong {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 550;
 }
 .journey-stop.complete strong {
   color: #6d7c74;
 }
 .journey-stop small {
-  font-size: 9px;
+  font-size: 12px;
   color: #aaa4b0;
   display: flex;
   gap: 5px;
@@ -689,7 +689,7 @@ h1 {
   align-items: center;
   gap: 8px;
   color: #a38cb7;
-  font-size: 10px;
+  font-size: 12px;
   background: #fdfcff;
   border-radius: 0 0 15px 15px;
 }
@@ -698,7 +698,7 @@ h1 {
   align-items: center;
   gap: 5px;
   color: #aaa3b1;
-  font-size: 8px;
+  font-size: 12px;
   margin-left: auto;
 }
 .patient-grid {
@@ -719,7 +719,7 @@ h1 {
   padding-bottom: 0;
 }
 .micro {
-  font-size: 9px;
+  font-size: 12px;
   color: #9c95a6;
   line-height: 1.6;
 }
@@ -762,11 +762,11 @@ h1 {
   gap: 6px;
 }
 .priority-copy strong {
-  font-size: 11px;
+  font-size: 12px;
   color: #5f566c;
 }
 .priority-copy small {
-  font-size: 9px;
+  font-size: 12px;
   color: #a49aaa;
   line-height: 1.5;
 }
@@ -774,7 +774,7 @@ h1 {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 9px;
+  font-size: 12px;
   color: #a89bba;
   white-space: nowrap;
 }
@@ -783,7 +783,7 @@ h1 {
   background: #f0f7f2;
   border-radius: 6px;
   padding: 4px 5px;
-  font-size: 8px;
+  font-size: 12px;
 }
 .card-bottom-link {
   display: flex;
@@ -796,7 +796,7 @@ h1 {
   border: 0;
   border-top: 1px solid #f0edf5;
   color: #9b85b7;
-  font-size: 9px;
+  font-size: 12px;
   background: #fdfcfe;
   border-radius: 0 0 15px 15px;
 }
@@ -804,7 +804,7 @@ h1 {
   margin-bottom: 8px;
 }
 .section-description {
-  font-size: 10px;
+  font-size: 12px;
   color: #a095ac;
   margin-bottom: 14px;
 }
@@ -850,12 +850,12 @@ h1 {
   gap: 5px;
 }
 .check-item strong {
-  font-size: 11px;
+  font-size: 12px;
   color: #776785;
   font-weight: 500;
 }
 .check-item small {
-  font-size: 9px;
+  font-size: 12px;
   color: #ab9fb7;
 }
 .check-item.checked strong {
@@ -870,7 +870,7 @@ h1 {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 8px;
+  font-size: 12px;
   color: #b0a6b9;
   border-top: 1px solid #f1edf6;
   padding-top: 14px;
@@ -890,20 +890,20 @@ h1 {
   margin-bottom: 12px;
 }
 .note strong {
-  font-size: 10px;
+  font-size: 12px;
   color: #6c7d6f;
 }
 .note small {
   display: block;
   color: #a0aa9d;
-  font-size: 8px;
+  font-size: 12px;
   margin-top: 3px;
 }
 .note .avatar {
   border-color: #fff8;
 }
 .note p {
-  font-size: 11px;
+  font-size: 12px;
   color: #7b887b;
   line-height: 1.9;
   margin-top: 12px;
@@ -918,7 +918,7 @@ h1 {
   margin-left: auto;
 }
 .add-note {
-  font-size: 10px;
+  font-size: 12px;
   margin: 0 0 17px 0;
   color: #a18bb5;
 }
@@ -947,7 +947,7 @@ h1 {
   color: #7a638d;
 }
 .ask-card p {
-  font-size: 10px;
+  font-size: 12px;
   color: #a28faf;
   line-height: 1.8;
   margin-top: 7px;
@@ -955,12 +955,12 @@ h1 {
 .ask-card .button {
   padding: 9px 15px;
   min-height: 35px;
-  font-size: 10px;
+  font-size: 12px;
   margin-top: 15px;
 }
 .ask-card > small {
   display: block;
-  font-size: 8px;
+  font-size: 12px;
   color: #b4a8c1;
   margin-top: 10px;
 }
@@ -976,12 +976,12 @@ h1 {
   background: #fefeff;
 }
 .question > p {
-  font-size: 11px;
+  font-size: 12px;
   color: #7d718b;
   margin-top: 7px;
 }
 .question .badge {
-  font-size: 8px;
+  font-size: 12px;
   padding: 3px 7px;
 }
 .row {
@@ -1000,16 +1000,16 @@ h1 {
   border-top: 1px solid #eeeaf4;
 }
 .answer strong {
-  font-size: 10px;
+  font-size: 12px;
   color: #8672a2;
 }
 .answer strong span {
   font-weight: 400;
-  font-size: 9px;
+  font-size: 12px;
   color: #a89ab6;
 }
 .answer p {
-  font-size: 11px;
+  font-size: 12px;
   margin-top: 5px;
   color: #8d7c9e;
 }
@@ -1024,7 +1024,7 @@ h1 {
   align-items: center;
   gap: 6px;
   color: #bfa266;
-  font-size: 10px;
+  font-size: 12px;
 }
 .discovery-grid {
   display: grid;
@@ -1089,7 +1089,7 @@ h1 {
 }
 .discovery-card .badge {
   background: none;
-  font-size: 7px;
+  font-size: 12px;
   letter-spacing: 1px;
   padding: 0;
   color: #b08e9e;
@@ -1106,7 +1106,7 @@ h1 {
   color: #78697f;
 }
 .discovery-card p {
-  font-size: 9px;
+  font-size: 12px;
   color: #aaa0b1;
   margin-top: 5px;
 }
@@ -1135,7 +1135,7 @@ h1 {
   background: #ffffffa6;
   padding: 4px 7px;
   color: #9f93a4;
-  font-size: 7px;
+  font-size: 12px;
   z-index: 1;
 }
 .discovery-arrow {
@@ -1156,7 +1156,7 @@ h1 {
   gap: 14px;
   padding: 15px 0;
   color: #aaa1b5;
-  font-size: 9px;
+  font-size: 12px;
 }
 .entertainment-row > span {
   display: flex;
@@ -1167,7 +1167,7 @@ h1 {
   margin-left: auto;
 }
 .entertainment-row .text-button {
-  font-size: 9px;
+  font-size: 12px;
 }
 .muted {
   color: #9d93a8;
@@ -1190,11 +1190,11 @@ h1 {
   margin-left: -5px;
 }
 .care-team-strip strong {
-  font-size: 11px;
+  font-size: 12px;
   color: #86758d;
 }
 .care-team-strip p {
-  font-size: 9px;
+  font-size: 12px;
   color: #a99cb1;
   margin-top: 4px;
 }
@@ -1208,7 +1208,7 @@ footer {
   gap: 20px;
   padding: 27px 0 23px;
   color: #b4aebd;
-  font-size: 8px;
+  font-size: 12px;
 }
 footer > span {
   display: flex;
@@ -1220,7 +1220,7 @@ footer button {
   background: none;
   padding: 0 0 0 6px;
   color: #ac9bbd;
-  font-size: 8px;
+  font-size: 12px;
   text-decoration: underline;
 }
 .toast {
@@ -1312,7 +1312,7 @@ footer button {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-size: 11px;
+  font-size: 12px;
   color: #83728d;
   margin: 17px 0;
 }
@@ -1347,7 +1347,7 @@ select:focus {
   display: flex;
   gap: 10px;
   align-items: flex-start;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.8;
   padding: 13px 15px;
   color: #9b89ac;
@@ -1394,7 +1394,7 @@ select:focus {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
-  font-size: 10px;
+  font-size: 12px;
   color: #a496b1;
   margin: 14px 0 20px;
 }
@@ -1405,7 +1405,7 @@ select:focus {
 }
 .results,
 .history {
-  font-size: 11px;
+  font-size: 12px;
   color: #95849f;
   border: 1px solid #eee7f5;
   border-radius: 9px;
@@ -1426,7 +1426,7 @@ select:focus {
 .results p,
 .history p {
   margin-top: 12px;
-  font-size: 11px;
+  font-size: 12px;
 }
 .history p {
   overflow-wrap: anywhere;
@@ -1435,7 +1435,7 @@ select:focus {
   padding: 12px;
   background: #f9f6fc;
   border-radius: 7px;
-  font-size: 11px !important;
+  font-size: 12px !important;
 }
 .milestone-celebration {
   background: #eff7ef;
@@ -1482,7 +1482,7 @@ select:focus {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.7;
   color: #9b85a8;
   margin: 15px 0 20px;
@@ -1517,11 +1517,11 @@ select:focus {
   font-size: 13px;
 }
 .team-person small {
-  font-size: 10px;
+  font-size: 12px;
   color: #a28eb0;
 }
 .team-person p {
-  font-size: 11px;
+  font-size: 12px;
   color: #a394ac;
   margin-top: 7px;
 }
@@ -1599,7 +1599,7 @@ select:focus {
 }
 .story-card small {
   display: block;
-  font-size: 10px;
+  font-size: 12px;
   margin-top: 7px;
 }
 .sky-art.compact {
@@ -1670,7 +1670,7 @@ blockquote {
   gap: 15px;
 }
 .clinical-status strong {
-  font-size: 11px;
+  font-size: 12px;
   color: #71917e;
 }
 .snapshot-grid {
@@ -1690,7 +1690,7 @@ blockquote {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 550;
   letter-spacing: 0.8px;
   color: #a299ac;
@@ -1704,7 +1704,7 @@ blockquote {
 }
 .snapshot > small {
   display: block;
-  font-size: 9px;
+  font-size: 12px;
   color: #b2a6b9;
   margin-top: 8px;
   line-height: 1.5;
@@ -1756,11 +1756,11 @@ blockquote {
   justify-content: center;
   gap: 6px;
   color: #a195ad;
-  font-size: 10px;
+  font-size: 12px;
   min-height: 25px;
 }
 .timeline-date .badge {
-  font-size: 8px;
+  font-size: 12px;
   padding: 3px 6px;
 }
 .timeline-events {
@@ -1780,7 +1780,7 @@ blockquote {
   background: #fff;
   border-radius: 8px;
   padding: 8px 6px;
-  font-size: 9px;
+  font-size: 12px;
   line-height: 1.5;
   color: #8c759f;
   position: relative;
@@ -1795,7 +1795,7 @@ blockquote {
 }
 .event-marker small {
   display: block;
-  font-size: 7px;
+  font-size: 12px;
   color: #b3a1bf;
   margin-top: 3px;
 }
@@ -1810,7 +1810,7 @@ blockquote {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 9px;
+  font-size: 12px;
   color: #87758c;
   border-right: 2px solid white;
   white-space: nowrap;
@@ -1838,7 +1838,7 @@ blockquote {
   border: 1px dashed #ded3bc !important;
 }
 .timeline-day-number {
-  font-size: 8px;
+  font-size: 12px;
   display: block;
   text-align: center;
   padding: 9px;
@@ -1849,7 +1849,7 @@ blockquote {
   gap: 17px;
   flex-wrap: wrap;
   margin-top: 17px;
-  font-size: 8px;
+  font-size: 12px;
   color: #a598b0;
 }
 .timeline-legend > span {
@@ -1868,12 +1868,12 @@ blockquote {
   border-radius: 7px;
   padding: 7px;
   color: #9c8aa8;
-  font-size: 8px;
+  font-size: 12px;
   text-align: left;
   line-height: 1.5;
 }
 .follow-marker small {
-  font-size: 7px;
+  font-size: 12px;
   display: block;
   padding-left: 14px;
   line-height: 1.5;
@@ -1907,12 +1907,12 @@ blockquote {
   margin: 12px 0 8px;
 }
 .concern p {
-  font-size: 10px;
+  font-size: 12px;
   color: #ab9e89;
   margin-bottom: 10px;
 }
 .concern .text-button {
-  font-size: 10px;
+  font-size: 12px;
   margin-top: 9px;
 }
 .resolved-note {
@@ -1923,14 +1923,14 @@ blockquote {
   color: #91a791;
 }
 .resolved-note strong {
-  font-size: 11px;
+  font-size: 12px;
   display: block;
   font-weight: 500;
 }
 .resolved-note small {
   display: block;
   color: #b0baa9;
-  font-size: 9px;
+  font-size: 12px;
   margin-top: 5px;
 }
 .news-list {
@@ -1967,17 +1967,17 @@ blockquote {
   flex: 1;
 }
 .news-item small {
-  font-size: 8px;
+  font-size: 12px;
   color: #b6a5c0;
 }
 .news-item strong {
   display: block;
-  font-size: 11px;
+  font-size: 12px;
   color: #8f789c;
   margin: 5px 0;
 }
 .news-item p {
-  font-size: 9px;
+  font-size: 12px;
   color: #b0a2b9;
 }
 .news-item > svg {
@@ -1986,7 +1986,7 @@ blockquote {
 }
 .clinical .section-title select {
   padding: 6px 8px;
-  font-size: 9px;
+  font-size: 12px;
   border-radius: 6px;
   color: #ab99b8;
 }
@@ -2002,23 +2002,23 @@ blockquote {
 }
 .plan-line > span:first-child {
   color: #b29dc2;
-  font-size: 10px;
+  font-size: 12px;
   min-width: 38px;
 }
 .plan-line > div {
   flex: 1;
 }
 .plan-line strong {
-  font-size: 11px;
+  font-size: 12px;
   color: #9680a3;
 }
 .plan-line p {
-  font-size: 10px;
+  font-size: 12px;
   color: #b5a4bf;
   margin-top: 4px;
 }
 .plan-line > small {
-  font-size: 8px;
+  font-size: 12px;
   color: #b7a5bf;
 }
 .table-tools {
@@ -2040,7 +2040,7 @@ blockquote {
   background: none;
   color: #a792b5;
   border-radius: 7px;
-  font-size: 10px;
+  font-size: 12px;
 }
 .filter-tabs button.selected {
   background: #f0e8f9;
@@ -2052,10 +2052,10 @@ blockquote {
   color: #ba8a9d;
   padding: 1px 4px;
   border-radius: 4px;
-  font-size: 8px;
+  font-size: 12px;
 }
 .table-tools select {
-  font-size: 10px;
+  font-size: 12px;
   padding: 7px 10px;
 }
 .table-scroll {
@@ -2069,7 +2069,7 @@ table {
   text-align: left;
 }
 th {
-  font-size: 9px;
+  font-size: 12px;
   color: #af9abb;
   font-weight: 500;
   background: #faf7fc;
@@ -2078,7 +2078,7 @@ th {
   border-bottom: 1px solid #f0e8f5;
 }
 td {
-  font-size: 10px;
+  font-size: 12px;
   color: #aa93b7;
   padding: 13px 11px;
   border-bottom: 1px solid #f3edf7;
@@ -2090,7 +2090,7 @@ td {
   padding: 0;
   text-align: left;
   color: #8e729f;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 550;
   white-space: normal;
   max-width: 230px;
@@ -2099,7 +2099,7 @@ td {
 }
 .table-action small {
   display: block;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 400;
   color: #b8a7c1;
   margin-top: 5px;
@@ -2115,7 +2115,7 @@ td {
   width: 100%;
 }
 .questionnaire-button small {
-  font-size: 7px;
+  font-size: 12px;
 }
 .questionnaire-button.done {
   color: #84a98f;
@@ -2124,16 +2124,16 @@ td {
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 9px;
+  font-size: 12px;
 }
 .owner-cell .avatar.small {
   width: 25px;
   height: 25px;
-  font-size: 7px;
+  font-size: 12px;
 }
 .due {
   display: block;
-  font-size: 8px;
+  font-size: 12px;
   margin-top: 5px;
   color: #b29dc0;
 }
@@ -2160,11 +2160,11 @@ td {
   color: #8f6da8;
 }
 .capture-rounds small {
-  font-size: 10px;
+  font-size: 12px;
   color: #b198c3;
 }
 .capture-rounds > span:last-child {
-  font-size: 11px;
+  font-size: 12px;
   color: #9b7bb3;
 }
 .empty {
@@ -2338,7 +2338,7 @@ td,
   }
   .priority-copy small,
   .check-item small {
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 @media (max-width: 1200px) {
@@ -2355,7 +2355,7 @@ td,
     height: 34px;
   }
   .workspace-label {
-    font-size: 7px;
+    font-size: 12px;
     letter-spacing: 1.5px;
   }
   .main-shell {
@@ -2377,7 +2377,7 @@ td,
     max-width: 270px;
   }
   .heading-actions .button {
-    font-size: 10px;
+    font-size: 12px;
     padding: 10px 12px;
   }
   .page-heading h1 {
@@ -2385,7 +2385,7 @@ td,
   }
   .page-heading p {
     max-width: 360px;
-    font-size: 10px;
+    font-size: 12px;
   }
   .hero-content h2 {
     font-size: 29px;
@@ -2434,13 +2434,13 @@ td,
     height: 36px;
   }
   .priority-time {
-    font-size: 8px;
+    font-size: 12px;
   }
   .priority-copy strong {
-    font-size: 10px;
+    font-size: 12px;
   }
   .priority-copy small {
-    font-size: 8px;
+    font-size: 12px;
   }
   .priority-item > svg {
     display: none;
@@ -2450,13 +2450,13 @@ td,
     font-size: 13px;
   }
   .section-title > .micro {
-    font-size: 8px;
+    font-size: 12px;
   }
   .discovery-card h3 {
     font-size: 12px;
   }
   .discovery-card p {
-    font-size: 8px;
+    font-size: 12px;
     max-width: 85%;
   }
   .snapshot-grid {
@@ -2527,7 +2527,7 @@ td,
     padding: 28px;
   }
   .hero-caption {
-    font-size: 8px;
+    font-size: 12px;
     right: 22px;
   }
   .sky-art {
@@ -2540,7 +2540,7 @@ td,
     display: none;
   }
   .priority-copy small {
-    font-size: 9px;
+    font-size: 12px;
   }
   .card .section-title .micro {
     display: none;
@@ -2549,7 +2549,7 @@ td,
     padding: 13px;
   }
   .ask-card p {
-    font-size: 9px;
+    font-size: 12px;
   }
   .ask-card h3 {
     font-size: 12px;
@@ -2561,7 +2561,7 @@ td,
     gap: 16px;
   }
   .news-item p {
-    font-size: 9px;
+    font-size: 12px;
   }
   .toast {
     left: calc(50% + 38px);
@@ -2624,14 +2624,14 @@ td,
     gap: 12px;
   }
   .breadcrumb {
-    font-size: 9px;
+    font-size: 12px;
     gap: 8px;
   }
   .breadcrumb > span {
     display: none;
   }
   .demo-label {
-    font-size: 8px;
+    font-size: 12px;
   }
   .topbar-right .avatar {
     display: none;
@@ -2647,12 +2647,12 @@ td,
     font-size: 26px;
   }
   .eyebrow {
-    font-size: 8px;
+    font-size: 12px;
     letter-spacing: 1px;
   }
   .page-heading p {
     max-width: 100%;
-    font-size: 10px;
+    font-size: 12px;
   }
   .heading-actions {
     max-width: 100%;
@@ -2662,7 +2662,7 @@ td,
   }
   .heading-actions .button {
     padding: 10px 15px;
-    font-size: 11px;
+    font-size: 12px;
   }
   .hero {
     min-height: 255px;
@@ -2677,14 +2677,14 @@ td,
   }
   .hero-content p {
     max-width: 60%;
-    font-size: 10px;
+    font-size: 12px;
   }
   .hero-pill {
-    font-size: 7px;
+    font-size: 12px;
     padding: 6px 8px;
   }
   .hero-link {
-    font-size: 10px;
+    font-size: 12px;
     margin-top: 17px;
   }
   .sky-art {
@@ -2711,7 +2711,7 @@ td,
     font-size: 14px;
   }
   .section-title p {
-    font-size: 9px;
+    font-size: 12px;
   }
   .journey-card {
     padding-bottom: 0;
@@ -2723,10 +2723,10 @@ td,
     font-size: 13px;
   }
   .journey-card .section-title p {
-    font-size: 8px;
+    font-size: 12px;
   }
   .journey-card .badge {
-    font-size: 7px;
+    font-size: 12px;
     padding: 4px 6px;
   }
   .journey-track {
@@ -2743,19 +2743,19 @@ td,
     width: 15px;
   }
   .journey-stop strong {
-    font-size: 8px;
+    font-size: 12px;
   }
   .journey-stop small {
-    font-size: 7px;
+    font-size: 12px;
   }
   .journey-foot {
     margin: 0 -18px;
     padding: 12px 18px;
-    font-size: 9px;
+    font-size: 12px;
     gap: 6px;
   }
   .estimate-note {
-    font-size: 7px;
+    font-size: 12px;
     margin-left: 20px;
     line-height: 1.7;
   }
@@ -2770,10 +2770,10 @@ td,
     padding: 15px 0;
   }
   .priority-copy strong {
-    font-size: 11px;
+    font-size: 12px;
   }
   .priority-copy small {
-    font-size: 9px;
+    font-size: 12px;
   }
   .priority-icon {
     width: 39px;
@@ -2791,10 +2791,10 @@ td,
     font-size: 12px;
   }
   .check-item small {
-    font-size: 10px;
+    font-size: 12px;
   }
   .clinical-check {
-    font-size: 8px;
+    font-size: 12px;
   }
   .note {
     padding: 17px;
@@ -2803,19 +2803,19 @@ td,
     font-size: 12px;
   }
   .ask-card p {
-    font-size: 11px;
+    font-size: 12px;
   }
   .ask-card h3 {
     font-size: 15px;
   }
   .ask-card .button {
-    font-size: 11px;
+    font-size: 12px;
   }
   .question > p {
     font-size: 12px;
   }
   .question .micro {
-    font-size: 9px;
+    font-size: 12px;
   }
   .learn-section .section-title {
     gap: 10px;
@@ -2824,7 +2824,7 @@ td,
     font-size: 12px;
   }
   .stars-count {
-    font-size: 8px;
+    font-size: 12px;
     white-space: nowrap;
     gap: 4px;
   }
@@ -2845,14 +2845,14 @@ td,
     min-height: 98px;
   }
   .discovery-card .badge {
-    font-size: 6px;
+    font-size: 12px;
     letter-spacing: 0.5px;
   }
   .discovery-card h3 {
-    font-size: 10px;
+    font-size: 12px;
   }
   .discovery-card p {
-    font-size: 8px;
+    font-size: 12px;
     max-width: 100%;
     line-height: 1.7;
   }
@@ -2860,7 +2860,7 @@ td,
     display: none;
   }
   .duration {
-    font-size: 6px;
+    font-size: 12px;
     padding: 3px 4px;
     right: 4px;
     bottom: 5px;
@@ -2883,7 +2883,7 @@ td,
     gap: 5px;
   }
   .entertainment-row > button:last-child {
-    font-size: 8px;
+    font-size: 12px;
   }
   .care-team-strip {
     padding: 15px 13px;
@@ -2891,25 +2891,25 @@ td,
     flex-wrap: wrap;
   }
   .care-team-strip strong {
-    font-size: 10px;
+    font-size: 12px;
   }
   .care-team-strip p {
-    font-size: 8px;
+    font-size: 12px;
   }
   .avatar-stack .avatar {
     width: 30px;
     height: 30px;
-    font-size: 8px;
+    font-size: 12px;
   }
   .care-team-strip > .button {
     margin-left: 72px;
-    font-size: 9px;
+    font-size: 12px;
     min-height: 29px;
     padding: 6px 11px;
   }
   .toast {
     left: 50%;
-    font-size: 11px;
+    font-size: 12px;
     width: max-content;
     max-width: 90vw;
   }
@@ -2924,13 +2924,13 @@ td,
     padding: 14px 12px;
   }
   .snapshot strong {
-    font-size: 11px;
+    font-size: 12px;
   }
   .snapshot > span {
-    font-size: 7px;
+    font-size: 12px;
   }
   .snapshot small {
-    font-size: 8px;
+    font-size: 12px;
   }
   .clinical-status {
     padding: 12px;
@@ -2940,7 +2940,7 @@ td,
     flex-wrap: wrap;
   }
   .clinical-status strong {
-    font-size: 10px;
+    font-size: 12px;
   }
   .clinical .page-heading h1 {
     font-size: 23px;
@@ -2949,14 +2949,14 @@ td,
     max-width: 100%;
   }
   .clinical .heading-actions .button {
-    font-size: 9px;
+    font-size: 12px;
   }
   .table-tools {
     flex-wrap: wrap;
     gap: 10px;
   }
   .filter-tabs button {
-    font-size: 9px;
+    font-size: 12px;
     padding: 7px 9px;
   }
   .timeline-card .section-title {
@@ -2964,17 +2964,17 @@ td,
   }
   .clinical .section-title select {
     max-width: 120px;
-    font-size: 8px;
+    font-size: 12px;
   }
   .capture-rounds {
     padding: 16px;
     gap: 12px;
   }
   .capture-rounds strong {
-    font-size: 10px;
+    font-size: 12px;
   }
   .capture-rounds > span:last-child {
-    font-size: 9px;
+    font-size: 12px;
   }
   .capture-rounds svg {
     width: 17px;
@@ -2982,7 +2982,7 @@ td,
   footer {
     padding: 23px 0;
     line-height: 1.9;
-    font-size: 7px;
+    font-size: 12px;
   }
   footer > span:last-child {
     flex-wrap: wrap;
@@ -2997,18 +2997,18 @@ td,
     padding: 20px;
   }
   .dialog-body .button {
-    font-size: 10px;
+    font-size: 12px;
   }
   .form-grid {
     gap: 0 12px;
   }
   .form-grid .field {
-    font-size: 10px;
+    font-size: 12px;
   }
   .field input,
   .field textarea,
   .field select {
-    font-size: 11px;
+    font-size: 12px;
     padding: 10px;
   }
   .dialog-actions {
@@ -3022,7 +3022,7 @@ td,
     height: 70px;
   }
   .plan-line .badge {
-    font-size: 7px;
+    font-size: 12px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -3049,7 +3049,7 @@ td,
 }
 .section-title p,
 .section-description {
-  font-size: 11px;
+  font-size: 12px;
   color: #81778b;
 }
 .priority-copy strong,
@@ -3073,7 +3073,7 @@ td,
 .due,
 .owner-cell,
 td {
-  font-size: 11px;
+  font-size: 12px;
 }
 .note p {
   line-height: 1.9;
@@ -3082,10 +3082,10 @@ td {
   padding: 17px 0;
 }
 .priority-time {
-  font-size: 10px;
+  font-size: 12px;
 }
 .priority-time.past {
-  font-size: 9px;
+  font-size: 12px;
 }
 .check-item {
   min-height: 62px;
@@ -3106,24 +3106,24 @@ td {
 .ask-card > small,
 .clinical-check,
 .estimate-note {
-  font-size: 10px;
+  font-size: 12px;
   color: #81758e;
 }
 .question .badge,
 .badge {
-  font-size: 10px;
+  font-size: 12px;
 }
 .journey-stop strong {
   font-size: 12px;
 }
 .journey-stop small {
-  font-size: 10px;
+  font-size: 12px;
 }
 .journey-foot {
-  font-size: 11px;
+  font-size: 12px;
 }
 .journey-foot .estimate-note {
-  font-size: 9px;
+  font-size: 12px;
 }
 .hero-caption {
   bottom: 9px;
@@ -3133,60 +3133,60 @@ td {
   font-size: 15px;
 }
 .discovery-card p {
-  font-size: 11px;
+  font-size: 12px;
   max-width: 85%;
 }
 .discovery-card .badge {
-  font-size: 8px;
+  font-size: 12px;
 }
 .duration {
-  font-size: 9px;
+  font-size: 12px;
 }
 .discovery-card > div:last-child {
   min-height: 120px;
 }
 .micro {
-  font-size: 10px;
+  font-size: 12px;
 }
 .snapshot > strong {
   font-size: 14px;
 }
 .snapshot > small {
-  font-size: 11px;
+  font-size: 12px;
 }
 .snapshot > span {
-  font-size: 9px;
+  font-size: 12px;
 }
 .clinical-status strong {
   font-size: 13px;
 }
 .clinical-status .micro {
-  font-size: 10px;
+  font-size: 12px;
 }
 .event-marker {
-  font-size: 11px;
+  font-size: 12px;
   min-height: 50px;
 }
 .event-marker small {
-  font-size: 9px;
+  font-size: 12px;
 }
 .timeline-events {
   min-height: 224px;
 }
 .timeline-date,
 .location-bar {
-  font-size: 11px;
+  font-size: 12px;
 }
 .follow-marker {
-  font-size: 10px;
+  font-size: 12px;
   min-height: 45px;
 }
 .follow-marker small {
-  font-size: 9px;
+  font-size: 12px;
 }
 .timeline-day-number,
 .timeline-legend {
-  font-size: 10px;
+  font-size: 12px;
 }
 .concern h3 {
   font-size: 14px;
@@ -3198,35 +3198,35 @@ td {
   font-size: 12px;
 }
 .resolved-note small {
-  font-size: 10px;
+  font-size: 12px;
 }
 .news-item small {
-  font-size: 10px;
+  font-size: 12px;
 }
 .table-action small {
-  font-size: 10px;
+  font-size: 12px;
 }
 .questionnaire-button small {
-  font-size: 9px;
+  font-size: 12px;
 }
 .questionnaire-button {
   min-height: 44px;
 }
 .filter-tabs button {
   min-height: 38px;
-  font-size: 11px;
+  font-size: 12px;
 }
 th {
-  font-size: 11px;
+  font-size: 12px;
 }
 .text-button {
   min-height: 32px;
 }
 .dialog-body .micro {
-  font-size: 11px;
+  font-size: 12px;
 }
 .clinical .section-title select {
-  font-size: 10px;
+  font-size: 12px;
   min-height: 34px;
 }
 .discovery-arrow {
@@ -3236,10 +3236,10 @@ th {
   font-size: 13px;
 }
 .care-team-strip p {
-  font-size: 11px;
+  font-size: 12px;
 }
 .care-team-strip .button {
-  font-size: 11px;
+  font-size: 12px;
 }
 .page-heading p {
   font-size: 12px;
@@ -3251,10 +3251,10 @@ th {
   font-size: 12px;
 }
 .topbar .demo-label {
-  font-size: 10px;
+  font-size: 12px;
 }
 .breadcrumb {
-  font-size: 11px;
+  font-size: 12px;
 }
 .clinical .card h2 {
   font-size: 16px;
@@ -3266,13 +3266,13 @@ th {
   min-height: 44px;
 }
 .together-card .text-button {
-  font-size: 11px;
+  font-size: 12px;
 }
 .capture-rounds strong {
   font-size: 13px;
 }
 .capture-rounds small {
-  font-size: 11px;
+  font-size: 12px;
 }
 .capture-rounds > span:last-child {
   font-size: 12px;
@@ -3296,32 +3296,32 @@ th {
     font-size: 12px;
   }
   .priority-copy small {
-    font-size: 10px;
+    font-size: 12px;
   }
   .section-title h2 {
     font-size: 14px;
   }
   .patient-left .badge {
-    font-size: 9px;
+    font-size: 12px;
   }
   .two-col {
     grid-template-columns: 1fr;
     gap: 0;
   }
   .journey-stop strong {
-    font-size: 11px;
+    font-size: 12px;
   }
   .journey-stop small {
-    font-size: 9px;
+    font-size: 12px;
   }
   .discovery-card h3 {
     font-size: 13px;
   }
   .discovery-card p {
-    font-size: 10px;
+    font-size: 12px;
   }
   .care-team-strip p {
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 @media (max-width: 700px) {
@@ -3329,36 +3329,36 @@ th {
     min-height: 40px;
   }
   .hero-content p {
-    font-size: 11px;
+    font-size: 12px;
   }
   .hero-content h2 {
     font-size: 24px;
   }
   .hero-link {
-    font-size: 11px;
+    font-size: 12px;
   }
   .journey-card .section-title h2 {
     font-size: 13px;
   }
   .journey-card .section-title p {
-    font-size: 10px;
+    font-size: 12px;
     max-width: 185px;
   }
   .journey-stop strong {
-    font-size: 9px;
+    font-size: 12px;
   }
   .journey-stop small {
-    font-size: 8px;
+    font-size: 12px;
   }
   .journey-foot {
-    font-size: 10px;
+    font-size: 12px;
   }
   .journey-foot .estimate-note {
-    font-size: 9px;
+    font-size: 12px;
   }
   .priority-time {
     display: flex;
-    font-size: 10px;
+    font-size: 12px;
   }
   .discovery-grid {
     grid-template-columns: 1fr;
@@ -3382,19 +3382,19 @@ th {
     font-size: 12px;
   }
   .discovery-card .badge {
-    font-size: 8px;
+    font-size: 12px;
   }
   .duration {
-    font-size: 7px;
+    font-size: 12px;
   }
   .stars-count {
-    font-size: 9px;
+    font-size: 12px;
   }
   .snapshot > strong {
     font-size: 12px;
   }
   .snapshot > small {
-    font-size: 10px;
+    font-size: 12px;
   }
   .section-title h2,
   .messages-card .section-title h2 {
@@ -3404,32 +3404,32 @@ th {
     font-size: 15px;
   }
   .clinical-status strong {
-    font-size: 11px;
+    font-size: 12px;
   }
   .care-team-strip strong {
     font-size: 12px;
   }
   .care-team-strip p {
-    font-size: 10px;
+    font-size: 12px;
   }
   .care-team-strip > .button {
-    font-size: 11px;
+    font-size: 12px;
     min-height: 40px;
   }
   .page-heading p {
-    font-size: 11px;
+    font-size: 12px;
   }
   .heading-actions .button {
-    font-size: 11px;
+    font-size: 12px;
   }
   .clinical-check {
-    font-size: 10px;
+    font-size: 12px;
   }
   .capture-rounds strong {
-    font-size: 11px;
+    font-size: 12px;
   }
   .capture-rounds > span:last-child {
-    font-size: 10px;
+    font-size: 12px;
   }
   .learn-section .section-title {
     flex-wrap: wrap;
@@ -3438,6 +3438,369 @@ th {
     font-size: 15px;
   }
   .clinical .section-title select {
-    font-size: 9px;
+    font-size: 12px;
+  }
+}
+
+/* Revision: centered dialogs, legible bedside type, connected patient hub. */
+.dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  max-height: calc(100dvh - 40px);
+}
+.dialog[open] {
+  display: block;
+}
+.dialog-head {
+  flex-shrink: 0;
+}
+p {
+  font-size: 14px;
+}
+.button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.hero {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  isolation: isolate;
+}
+.hero .sky-art {
+  width: 200px;
+  height: 165px;
+  right: 0;
+  top: -15px;
+  opacity: 0.22;
+  z-index: -1;
+}
+.hero-content {
+  padding: 30px;
+}
+.hero-content p {
+  font-size: 15px;
+}
+.hero-content h2 {
+  font-size: 30px;
+}
+.hero-notes {
+  padding: 28px 25px 15px 0;
+  z-index: 1;
+  min-width: 0;
+}
+.hero-notes h3 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+.hero-notes .note-board {
+  max-height: 290px;
+  overflow: auto;
+}
+.hero-notes .note {
+  background: #ffffffb8;
+  border: 1px solid #ffffffdd;
+}
+.hero-notes .note p {
+  font-size: 14px;
+  color: #58675d;
+}
+.hero-customize {
+  grid-column: 1/-1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  padding: 18px 25px;
+  border-top: 1px solid #ffffffb0;
+  background: #ffffff55;
+}
+.hero-customize label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+.hero-caption {
+  display: none;
+}
+.hero.theme-space {
+  background: radial-gradient(circle at 80% 15%, #e2d7fa, #e6e9fd 55%, #f3edfb);
+}
+.hero.theme-garden {
+  background: linear-gradient(115deg, #edf5e7, #ddede4, #f7f1dc);
+}
+.patient-left {
+  display: block !important;
+}
+.family-assignment {
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  border-top: 1px solid #ece6f3;
+}
+.family-assignment strong {
+  font-size: 14px;
+}
+.family-assignment p {
+  font-size: 12px;
+  margin: 5px 0;
+}
+.medical-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #796d87;
+  margin-top: 10px;
+}
+.star-balance {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: #f7f0dd;
+  padding: 20px;
+  border-radius: 12px;
+  color: #936d25;
+  margin-bottom: 15px;
+}
+.star-balance strong {
+  font-size: 32px;
+}
+.star-balance span {
+  font-size: 14px;
+}
+.reward-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 20px 0;
+}
+.reward-card {
+  padding: 20px 12px;
+  border: 1px solid #e8e0f2;
+  border-radius: 12px;
+  text-align: center;
+}
+.reward-art {
+  font-size: 36px;
+}
+.reward-card h3 {
+  min-height: 40px;
+}
+.reward-card .button {
+  white-space: normal;
+  width: 100%;
+  margin-top: 12px;
+}
+.star-shop > h3 {
+  margin-top: 20px;
+}
+.star-shop .plan-line {
+  flex-wrap: wrap;
+}
+.education-reading {
+  padding: 22px 0;
+}
+.education-reading p {
+  font-size: 16px;
+  margin: 16px 0;
+  line-height: 1.8;
+}
+.ai-placeholder {
+  border: 1px dashed #b8a4d4;
+  padding: 20px;
+  border-radius: 12px;
+  background: #f8f5fc;
+}
+.ai-placeholder p {
+  margin: 12px 0;
+}
+.round-checklist {
+  border: 1px solid #ddd4e9;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+.round-checklist-heading {
+  display: flex;
+  justify-content: space-between;
+  background: #f3eef9;
+  padding: 14px;
+  gap: 15px;
+  font-size: 13px;
+}
+.round-checklist .questionnaire-check {
+  border: 0;
+  border-top: 1px solid #e8e1ee;
+  border-radius: 0;
+  margin: 0;
+  padding: 17px;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.journey-periods {
+  display: grid;
+  gap: 10px;
+  padding: 8px 0 16px;
+}
+.journey-period {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: 1px solid #e8e0ef;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.journey-period.current {
+  border: 2px solid #bba4db;
+  background: #faf6ff;
+}
+.journey-period h3 {
+  padding: 14px 10px;
+  font-size: 13px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.period-events {
+  flex: 1;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+}
+.period-events .event-marker {
+  width: 100%;
+  font-size: 13px;
+}
+.period-events .event-marker small {
+  font-size: 12px;
+}
+.period-events .event-marker:after {
+  display: none;
+}
+.timeline-action-group {
+  border: 1px solid #e3d9ee;
+  padding: 10px;
+  border-radius: 8px;
+  background: #fff;
+}
+.timeline-action-group summary {
+  font-size: 12px;
+  cursor: pointer;
+  color: #766082;
+}
+.timeline-action-group button {
+  margin-top: 10px;
+  width: 100%;
+}
+.timeline-card > .section-title {
+  flex-wrap: wrap;
+}
+.timeline-card .micro {
+  margin-top: 12px;
+}
+.plan-preview .button {
+  margin-top: 12px;
+}
+.stars-count {
+  border: 0;
+  background: transparent;
+  min-height: 44px;
+}
+@media (max-width: 950px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  .hero-notes {
+    padding: 0 25px 15px;
+  }
+  .hero-content p {
+    max-width: 100%;
+  }
+  .hero-customize {
+    padding: 15px 25px;
+  }
+  .priority-time {
+    display: flex !important;
+  }
+  .journey-stop strong {
+    font-size: 12px;
+  }
+  .journey-track {
+    gap: 10px;
+  }
+  .journey-stop {
+    padding: 4px;
+  }
+  .journey-foot {
+    flex-wrap: wrap;
+  }
+  .estimate-note {
+    margin: 0;
+  }
+}
+@media (max-width: 700px) {
+  .reward-grid {
+    grid-template-columns: 1fr;
+  }
+  .reward-card h3 {
+    min-height: 0;
+  }
+  .hero-content h2 {
+    font-size: 26px;
+  }
+  .family-assignment {
+    flex-wrap: wrap;
+  }
+  .hero-customize {
+    padding: 15px;
+  }
+  .hero-customize label {
+    flex-wrap: wrap;
+  }
+  .journey-track {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 20px;
+  }
+  .journey-track:before {
+    display: none;
+  }
+  .sidebar {
+    padding: 8px;
+  }
+  .sidebar nav {
+    gap: 0;
+  }
+  .nav-item {
+    padding: 8px;
+  }
+  .brand-icon {
+    width: 28px;
+  }
+  .question .row {
+    flex-wrap: wrap;
+  }
+  .snapshot-grid {
+    grid-template-columns: 1fr;
+  }
+  .dialog {
+    max-width: calc(100vw - 24px);
+    max-height: calc(100dvh - 24px);
+  }
+  .dialog-head h2 {
+    font-size: 17px;
+  }
+  .heading-actions {
+    flex-wrap: wrap;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
   }
 }

@@ -34,6 +34,7 @@ import {
   X,
 } from "lucide-react";
 import {
+  familyOwners,
   initialState,
   reducer,
   events,
@@ -45,6 +46,8 @@ import {
   dateLabel,
 } from "./model";
 import type { State, Status, Mutation } from "./model";
+import JourneyTimeline from "./JourneyTimeline";
+import { StarShop, FamilyAssignments, ConditionGuide } from "./PatientHub";
 
 const KEY = "flightplan-demo-v1";
 type Modal = { kind: string; id?: string } | null;
@@ -56,7 +59,17 @@ function readState(): State {
       Array.isArray(s.actions) &&
       Array.isArray(s.questions) &&
       Array.isArray(s.priorities)
-      ? s
+      ? {
+          ...s,
+          priorities: s.priorities.some(
+            (p: { id: string }) => p.id === "question-time",
+          )
+            ? s.priorities
+            : [
+                ...s.priorities,
+                initialState.priorities.find((p) => p.id === "question-time")!,
+              ],
+        }
       : structuredClone(initialState);
   } catch {
     return structuredClone(initialState);
@@ -232,7 +245,7 @@ export default function App() {
   const [filter, setFilter] = useState("All actions");
   const [sort, setSort] = useState("Newest first");
   const [newsFilter, setNewsFilter] = useState("All updates");
-  const [zoom, setZoom] = useState(false);
+
   const [quiz, setQuiz] = useState<number | null>(null);
   const [flips, setFlips] = useState<number[]>([]);
   const [matched, setMatched] = useState<number[]>([]);
@@ -272,6 +285,13 @@ export default function App() {
     setQuiz(null);
   };
   const navigate = (name: string) => {
+    if (name === "My journey") {
+      setClinical(true);
+      setFamily(true);
+      setNav("Hospital timeline");
+      window.scrollTo(0, 0);
+      return;
+    }
     setNav(name);
     document
       .getElementById(
@@ -291,14 +311,6 @@ export default function App() {
     e.preventDefault();
     fn(new FormData(e.currentTarget));
   };
-  const timelineDays = Math.max(
-    7,
-    Math.round(
-      (new Date(state.discharge + "T12:00:00").getTime() -
-        new Date("2026-11-02T12:00:00").getTime()) /
-        86400000,
-    ) + 1,
-  );
   const incompleteQuestions = state.questions.filter(
     (q) => q.status !== "Answered",
   ).length;
@@ -340,6 +352,9 @@ export default function App() {
             </Badge>
           </div>
           <p>{q.text}</p>
+          <small className="micro">
+            To: {q.receiver || "My whole care team"}
+          </small>
           {q.answer && (
             <div className="answer">
               <Avatar name="MP" small />
@@ -445,6 +460,26 @@ export default function App() {
               )}
             </button>
           ))}
+          <button
+            className="nav-item"
+            onClick={() => {
+              setClinical(false);
+              setNav("My condition");
+              window.scrollTo(0, 0);
+            }}
+            aria-label="My condition"
+          >
+            <BookOpen />
+            <span>My condition</span>
+          </button>
+          <button
+            className="nav-item"
+            onClick={() => setModal({ kind: "stars" })}
+            aria-label="Discovery stars"
+          >
+            <Star />
+            <span>Discovery stars</span>
+          </button>
         </nav>
         <div className="sidebar-bottom">
           <div className="together-card">
@@ -513,8 +548,12 @@ export default function App() {
               </div>
               <h1>
                 {clinical
-                  ? "A clear picture. A shared plan."
-                  : "Good morning, Oliver"}
+                  ? family
+                    ? "Our care journey, together."
+                    : "A clear picture. A shared plan."
+                  : nav === "My condition"
+                    ? "Understanding my care"
+                    : "Good morning, Oliver"}
                 {!clinical && <span className="wave">☀️</span>}
               </h1>
               <p>
@@ -529,10 +568,12 @@ export default function App() {
                   <button
                     className={`button ${family ? "family-on" : "secondary"}`}
                     aria-pressed={family}
-                    onClick={() => setFamily(!family)}
+                    onClick={() =>
+                      family ? setModal({ kind: "access" }) : setFamily(true)
+                    }
                   >
                     <Users size={17} />
-                    Family-present {family ? "on" : "off"}
+                    {family ? "Clinician sign-in" : "Show family timeline"}
                     <span className={`toggle ${family ? "on" : ""}`} />
                   </button>
                   <button
@@ -559,10 +600,15 @@ export default function App() {
                   </button>
                   <button
                     className="button secondary"
-                    onClick={() => setModal({ kind: "access" })}
+                    onClick={() => {
+                      setClinical(true);
+                      setFamily(true);
+                      setNav("Hospital timeline");
+                      window.scrollTo(0, 0);
+                    }}
                   >
                     <Stethoscope size={18} />
-                    Care team view
+                    Shared timeline
                     <ArrowRight size={16} />
                   </button>
                 </>
@@ -588,7 +634,7 @@ export default function App() {
               {family && (
                 <div className="notice">
                   <ShieldCheck size={18} />
-                  Family-present mode is on. Showing shared plans and verified
+                  Shared family timeline. Showing approved plans and verified
                   milestones. Internal concerns and technical results are
                   hidden.
                 </div>
@@ -622,6 +668,7 @@ export default function App() {
                 </div>
                 <button
                   className="snapshot snapshot-button"
+                  disabled={family}
                   onClick={() => setModal({ kind: "discharge" })}
                 >
                   <span>
@@ -631,165 +678,17 @@ export default function App() {
                   <small>Clinician-entered estimate · May change</small>
                 </button>
               </div>
-              <section className="card timeline-card" id="timeline">
-                <SectionTitle
-                  title="The hospital journey"
-                  subtitle="A shared picture of where we’ve been, and what comes next."
-                >
-                  <div className="row">
-                    <button
-                      className="button tiny secondary"
-                      onClick={() => setZoom(!zoom)}
-                    >
-                      {zoom ? "Fit journey" : "Expand timeline"}
-                    </button>
-                    <button
-                      className="button tiny secondary"
-                      onClick={() =>
-                        document
-                          .getElementById("day-today")
-                          ?.scrollIntoView({
-                            behavior: "smooth",
-                            block: "nearest",
-                            inline: "center",
-                          })
-                      }
-                    >
-                      <Navigation size={14} />
-                      Today
-                    </button>
-                  </div>
-                </SectionTitle>
-                <div className="timeline-scroll">
-                  <div
-                    className={`timeline ${zoom ? "expanded" : ""}`}
-                    style={{
-                      gridTemplateColumns: `repeat(${timelineDays}, minmax(135px,1fr))`,
-                    }}
-                  >
-                    {Array.from({ length: timelineDays }, (_, i) => {
-                      const date = new Date(Date.UTC(2026, 10, 2 + i))
-                        .toISOString()
-                        .slice(0, 10);
-                      const dayEvents = events
-                        .filter((e) =>
-                          e.id === "home"
-                            ? state.discharge === date
-                            : e.date === date,
-                        )
-                        .filter((e) => !family || e.verified);
-                      const follows = family
-                        ? []
-                        : visibleFollowups(state.actions).filter(
-                            (a) => a.due === date,
-                          );
-                      return (
-                        <div
-                          key={date}
-                          className={`timeline-day ${date === TODAY ? "current" : ""}`}
-                          id={date === TODAY ? "day-today" : undefined}
-                        >
-                          <div className="timeline-date">
-                            {dateLabel(date)}
-                            {date === TODAY && <Badge>Today</Badge>}
-                          </div>
-                          <div className="timeline-events">
-                            {dayEvents.map((e) => (
-                              <button
-                                key={e.id}
-                                className={`event-marker ${e.type === "Estimate" ? "tentative" : ""}`}
-                                onClick={() =>
-                                  setModal({ kind: "event", id: e.id })
-                                }
-                              >
-                                <span className="event-icon">
-                                  {e.type === "Procedure" ? (
-                                    <Heart size={13} />
-                                  ) : e.type === "Transfer" ? (
-                                    <ArrowRight size={13} />
-                                  ) : (
-                                    <Compass size={13} />
-                                  )}
-                                </span>
-                                <span>
-                                  {family ? e.friendly : e.title}
-                                  <small>
-                                    {e.time} ·{" "}
-                                    {e.verified
-                                      ? "Verified"
-                                      : e.type === "Estimate"
-                                        ? "Tentative"
-                                        : "Scheduled"}
-                                  </small>
-                                </span>
-                              </button>
-                            ))}
-                            {follows.length > 0 && (
-                              <button
-                                className="follow-marker"
-                                onClick={() =>
-                                  setModal({ kind: "followups", id: date })
-                                }
-                              >
-                                <span className="hollow-dot" />
-                                {follows.length} follow-up
-                                {follows.length > 1 ? "s" : ""}
-                                <small>{follows[0].title}</small>
-                              </button>
-                            )}
-                          </div>
-                          <div
-                            className={`location-bar ${i === 0 ? "inpatient" : i === 1 ? "operating" : i === 2 ? "cicu" : date <= TODAY ? "accu" : "planned"}`}
-                          >
-                            {i === 0
-                              ? "Inpatient"
-                              : i === 1
-                                ? "OR → CICU"
-                                : i === 2
-                                  ? "CICU"
-                                  : date <= TODAY
-                                    ? "ACCU"
-                                    : date === state.discharge
-                                      ? "Home · estimated"
-                                      : "Plan pending"}
-                          </div>
-                          <small className="timeline-day-number">
-                            Day {i + 1}
-                          </small>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-                <div className="timeline-legend">
-                  <span>
-                    <i className="inpatient" />
-                    Inpatient
-                  </span>
-                  <span>
-                    <i className="operating" />
-                    Operating room
-                  </span>
-                  <span>
-                    <i className="cicu" />
-                    Cardiac ICU
-                  </span>
-                  <span>
-                    <i className="accu" />
-                    Acute cardiac care
-                  </span>
-                  <span>
-                    <i className="planned" />
-                    Tentative / unknown
-                  </span>
-                </div>
-              </section>
+              <JourneyTimeline
+                state={state}
+                family={family}
+                open={(kind, id) => setModal({ kind, id })}
+              />
               <div className="two-col clinical-middle">
                 {!family && (
                   <section className="card">
                     <SectionTitle
                       icon={<ShieldCheck size={19} />}
-                      title="Important notes"
+                      title="Active concerns"
                       subtitle="Documented concerns, with clear ownership."
                     />
                     <div className="concern">
@@ -887,6 +786,37 @@ export default function App() {
                     </select>
                   </SectionTitle>
                   <div className="news-list">
+                    {!family &&
+                      state.actions
+                        .filter(
+                          (a) =>
+                            a.created.slice(0, 10) >= "2026-11-04" &&
+                            a.created.slice(0, 10) <= TODAY,
+                        )
+                        .slice()
+                        .reverse()
+                        .map((a) => (
+                          <button
+                            className="news-item"
+                            key={a.id}
+                            onClick={() =>
+                              setModal({ kind: "action", id: a.id })
+                            }
+                          >
+                            <ClipboardCheck size={17} />
+                            <div>
+                              <small>
+                                {dateLabel(a.created)} ·{" "}
+                                {a.created.slice(11, 16)} · Action
+                              </small>
+                              <strong>{a.title}</strong>
+                              <p>
+                                {a.owner} · {a.status} · Due {dateLabel(a.due)}
+                              </p>
+                            </div>
+                            <ChevronRight size={16} />
+                          </button>
+                        ))}
                     {recentEvents()
                       .filter(
                         (e) =>
@@ -934,7 +864,7 @@ export default function App() {
                 >
                   <Badge tone="amber">{incompleteQuestions} to discuss</Badge>
                 </SectionTitle>
-                {questions(true)}
+                {questions(!family)}
               </section>
               <section className="card shared-plan">
                 <SectionTitle
@@ -1145,9 +1075,11 @@ export default function App() {
                 </button>
               )}
             </>
+          ) : nav === "My condition" ? (
+            <ConditionGuide ask={() => setModal({ kind: "ask" })} />
           ) : (
             <>
-              <section className="hero">
+              <section className={`hero theme-${state.theme || "sky"}`}>
                 <div className="hero-content">
                   <div className="hero-pill">
                     <span className="status-dot" />
@@ -1170,6 +1102,87 @@ export default function App() {
                   </button>
                 </div>
                 <SkyArt />
+                <div className="hero-notes">
+                  <h3>A note of encouragement</h3>{" "}
+                  <div className="note-board">
+                    {state.notes.map((n) => (
+                      <div
+                        className={`note ${n.personal ? "personal" : ""}`}
+                        key={n.id}
+                      >
+                        <div className="row">
+                          <Avatar
+                            name={
+                              n.personal
+                                ? "OJ"
+                                : n.author === "Jamie"
+                                  ? "JC"
+                                  : "MP"
+                            }
+                            tone={n.personal ? "peach" : "mint"}
+                            small
+                          />
+                          <div>
+                            <strong>{n.author}</strong>
+                            <small>
+                              {n.role} · {dateLabel(n.time)} ·{" "}
+                              {new Date(n.time).toLocaleTimeString("en-US", {
+                                hour: "numeric",
+                                minute: "2-digit",
+                              })}
+                            </small>
+                          </div>
+                          {n.personal && (
+                            <button
+                              className="text-button edit-note"
+                              onClick={() =>
+                                setModal({ kind: "note", id: n.id })
+                              }
+                            >
+                              Edit
+                            </button>
+                          )}
+                        </div>
+                        <p>{n.text}</p>
+                        {n.history.length > 0 && (
+                          <small className="micro">
+                            Edited · {n.history.length} prior version(s)
+                            retained
+                          </small>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="hero-customize">
+                  <label>
+                    My world{" "}
+                    <select
+                      aria-label="Choose your interest"
+                      value={state.theme || "sky"}
+                      onChange={(e) =>
+                        dispatch({ type: "theme", theme: e.target.value })
+                      }
+                    >
+                      <option value="sky">Sky explorer</option>
+                      <option value="space">Space adventurer</option>
+                      <option value="garden">Nature explorer</option>
+                    </select>
+                  </label>
+                  <button
+                    className="button secondary"
+                    onClick={() => setModal({ kind: "stars" })}
+                  >
+                    <Star size={16} />
+                    {state.stars} stars · Treat shop
+                  </button>
+                  <button
+                    className="button secondary"
+                    onClick={() => setModal({ kind: "game" })}
+                  >
+                    Play a game
+                  </button>
+                </div>
                 <div className="hero-caption">
                   <span>✦</span> Small steps count. Every single one.
                 </div>
@@ -1233,7 +1246,7 @@ export default function App() {
                 </div>
                 <div className="journey-foot">
                   <Sparkles size={15} />
-                  <span>Next up: pictures of your heart this afternoon.</span>
+
                   <span className="estimate-note">
                     <Info size={13} />
                     Home date is your care team’s estimate. Plans can change.
@@ -1246,12 +1259,7 @@ export default function App() {
                     <SectionTitle
                       icon={<Sun size={20} />}
                       title="A little plan for today"
-                    >
-                      <span className="micro">
-                        {state.priorities.filter((p) => p.approved).length}{" "}
-                        small steps, together
-                      </span>
-                    </SectionTitle>
+                    ></SectionTitle>
                     <div className="priorities">
                       {state.priorities
                         .filter((p) => p.approved)
@@ -1275,7 +1283,10 @@ export default function App() {
                               )}
                             </span>
                             <span className="priority-copy">
-                              <strong>{p.title}</strong>
+                              <strong>
+                                {p.title}
+                                {p.completed ? " · Done" : ""}
+                              </strong>
                               <small>{p.detail}</small>
                             </span>
                             <span
@@ -1309,132 +1320,15 @@ export default function App() {
                       See our whole plan <ArrowRight size={15} />
                     </button>
                   </section>
-                  <section className="card checklist-card">
-                    <SectionTitle
-                      icon={<ClipboardCheck size={20} />}
-                      title="My little wins"
-                    >
-                      <Badge>{state.tasks.length}/4 little wins</Badge>
-                    </SectionTitle>
-                    <p className="section-description">
-                      Your day, at your pace. Every little win counts.
-                    </p>
-                    <div className="checklist">
-                      {[
-                        {
-                          id: "teeth",
-                          title: "A fresh start",
-                          sub: "Brush my teeth",
-                          icon: "🪥",
-                        },
-                        {
-                          id: "question",
-                          title: "Let my curiosity fly",
-                          sub: "Think of a question for my team",
-                          icon: "💭",
-                        },
-                        {
-                          id: "learn",
-                          title: "Learn something new",
-                          sub: "Explore a heart adventure",
-                          icon: "📚",
-                        },
-                        {
-                          id: "calm",
-                          title: "Make a little space for me",
-                          sub: "Draw, read, or take a quiet moment",
-                          icon: "🌱",
-                        },
-                      ].map((t) => (
-                        <button
-                          key={t.id}
-                          className={`check-item ${state.tasks.includes(t.id) ? "checked" : ""}`}
-                          role="checkbox"
-                          aria-checked={state.tasks.includes(t.id)}
-                          onClick={() =>
-                            mutate(
-                              { type: "task", id: t.id },
-                              state.tasks.includes(t.id)
-                                ? "Little win unchecked"
-                                : "One little win. You did that! ✨",
-                            )
-                          }
-                        >
-                          <span className="checkbox">
-                            {state.tasks.includes(t.id) && <Check size={14} />}
-                          </span>
-                          <span>
-                            <strong>{t.title}</strong>
-                            <small>{t.sub}</small>
-                          </span>
-                          <span className="task-emoji">{t.icon}</span>
-                        </button>
-                      ))}
-                    </div>
-                    <div className="clinical-check">
-                      <LockKeyhole size={14} />
-                      <span>
-                        Medicines and treatments are confirmed by your nurse.
-                      </span>
-                    </div>
-                  </section>
+                  <FamilyAssignments state={state} mutate={mutate} />
                 </div>
                 <section className="card messages-card" id="messages">
                   <SectionTitle
                     icon={<MessageCircle size={20} />}
-                    title="A note of encouragement"
+                    title="Questions & notes"
                   >
                     <Heart size={17} className="heart-accent" />
                   </SectionTitle>
-                  <div className="note-board">
-                    {state.notes.map((n) => (
-                      <div
-                        className={`note ${n.personal ? "personal" : ""}`}
-                        key={n.id}
-                      >
-                        <div className="row">
-                          <Avatar
-                            name={
-                              n.personal
-                                ? "OJ"
-                                : n.author === "Jamie"
-                                  ? "JC"
-                                  : "MP"
-                            }
-                            tone={n.personal ? "peach" : "mint"}
-                            small
-                          />
-                          <div>
-                            <strong>{n.author}</strong>
-                            <small>
-                              {n.role} · {dateLabel(n.time)} ·{" "}
-                              {new Date(n.time).toLocaleTimeString("en-US", {
-                                hour: "numeric",
-                                minute: "2-digit",
-                              })}
-                            </small>
-                          </div>
-                          {n.personal && (
-                            <button
-                              className="text-button edit-note"
-                              onClick={() =>
-                                setModal({ kind: "note", id: n.id })
-                              }
-                            >
-                              Edit
-                            </button>
-                          )}
-                        </div>
-                        <p>{n.text}</p>
-                        {n.history.length > 0 && (
-                          <small className="micro">
-                            Edited · {n.history.length} prior version(s)
-                            retained
-                          </small>
-                        )}
-                      </div>
-                    ))}
-                  </div>
                   <button
                     className="text-button add-note"
                     onClick={() => setModal({ kind: "note" })}
@@ -1469,10 +1363,13 @@ export default function App() {
                   title="A little discovery, a little fun"
                   subtitle="There’s more to your day than the hospital."
                 >
-                  <div className="stars-count">
+                  <button
+                    className="stars-count"
+                    onClick={() => setModal({ kind: "stars" })}
+                  >
                     <Star size={16} fill="currentColor" />
                     {state.stars} discovery stars
-                  </div>
+                  </button>
                 </SectionTitle>
                 <div className="discovery-grid">
                   <button
@@ -1604,47 +1501,90 @@ export default function App() {
       {modal && (
         <Dialog
           title={
-            modal.kind === "access"
-              ? "A workspace for your care team"
-              : modal.kind === "help"
-                ? "A little help, right here"
-                : modal.kind === "ask"
-                  ? "What’s on your mind?"
-                  : modal.kind === "answer"
-                    ? "Make room for a question"
-                    : modal.kind === "action" || modal.kind === "new-action"
-                      ? "A clear next step"
-                      : modal.kind === "questionnaire"
-                        ? "A moment to check in"
-                        : modal.kind === "rounds"
-                          ? "Capture the conversation"
-                          : modal.kind === "priority"
-                            ? "Add to the shared plan"
-                            : modal.kind === "game"
-                              ? "Sky explorers"
-                              : modal.kind === "quest"
-                                ? "Meet your care crew"
-                                : modal.kind === "team"
-                                  ? "Your care crew"
-                                  : modal.kind === "discharge"
-                                    ? "Update the estimated home date"
-                                    : modal.kind === "note"
-                                      ? "Your space to write"
-                                      : modal.kind === "reset"
-                                        ? "Start a fresh adventure?"
-                                        : modal.kind === "movies"
-                                          ? "Cloud cinema"
-                                          : modal.kind === "lesson"
-                                            ? "A little discovery"
-                                            : modal.kind === "about"
-                                              ? "A better bedside conversation"
-                                              : modal.kind === "updates"
-                                                ? "Your latest updates"
-                                                : "One step at a time"
+            modal.kind === "stars"
+              ? "My discovery stars"
+              : modal.kind === "conditions"
+                ? "Understanding my care"
+                : modal.kind === "access"
+                  ? "A workspace for your care team"
+                  : modal.kind === "help"
+                    ? "A little help, right here"
+                    : modal.kind === "ask"
+                      ? "What’s on your mind?"
+                      : modal.kind === "answer"
+                        ? "Make room for a question"
+                        : modal.kind === "action" || modal.kind === "new-action"
+                          ? "A clear next step"
+                          : modal.kind === "questionnaire"
+                            ? "A moment to check in"
+                            : modal.kind === "rounds"
+                              ? "Capture the conversation"
+                              : modal.kind === "priority"
+                                ? "Add to the shared plan"
+                                : modal.kind === "game"
+                                  ? "Sky explorers"
+                                  : modal.kind === "quest"
+                                    ? "Meet your care crew"
+                                    : modal.kind === "team"
+                                      ? "Your care crew"
+                                      : modal.kind === "discharge"
+                                        ? "Update the estimated home date"
+                                        : modal.kind === "note"
+                                          ? "Your space to write"
+                                          : modal.kind === "reset"
+                                            ? "Start a fresh adventure?"
+                                            : modal.kind === "movies"
+                                              ? "Cloud cinema"
+                                              : modal.kind === "lesson"
+                                                ? "A little discovery"
+                                                : modal.kind === "about"
+                                                  ? "A better bedside conversation"
+                                                  : modal.kind === "updates"
+                                                    ? "Your latest updates"
+                                                    : "One step at a time"
           }
           close={close}
           wide={["action", "event", "rounds"].includes(modal.kind)}
         >
+          {modal.kind === "stars" && <StarShop state={state} mutate={mutate} />}
+          {modal.kind === "conditions" && (
+            <ConditionGuide ask={() => setModal({ kind: "ask" })} />
+          )}
+          {modal.kind === "family-action" &&
+            (() => {
+              const a = state.actions.find(
+                (a) => a.id === modal.id && familyOwners.includes(a.owner),
+              );
+              return a ? (
+                <>
+                  <h3>{a.title}</h3>
+                  <p>
+                    {a.owner} · Due {dateLabel(a.due)} · {a.status}
+                  </p>
+                  {a.medical === false ? (
+                    <button
+                      className="button primary"
+                      onClick={() =>
+                        mutate(
+                          {
+                            type: "complete-personal",
+                            target: "action",
+                            id: a.id,
+                          },
+                          "Nonmedical action updated",
+                        )
+                      }
+                    >
+                      {a.status === "Completed"
+                        ? "Undo completion"
+                        : "Mark done"}
+                    </button>
+                  ) : (
+                    <p>Medical activity: your care team confirms completion.</p>
+                  )}
+                </>
+              ) : null;
+            })()}
           {modal.kind === "access" && (
             <>
               <div className="modal-illustration lilac">
@@ -1669,6 +1609,7 @@ export default function App() {
                 className="button primary full"
                 onClick={() => {
                   setClinical(true);
+                  setFamily(false);
                   setNav("Rounds overview");
                   close();
                   window.scrollTo(0, 0);
@@ -1730,7 +1671,11 @@ export default function App() {
                 submit(e, (f) => {
                   mutate(
                     modal.kind === "ask"
-                      ? { type: "ask", text: get(f, "text") }
+                      ? {
+                          type: "ask",
+                          text: get(f, "text"),
+                          receiver: get(f, "receiver"),
+                        }
                       : { type: "note", text: get(f, "text"), id: modal.id },
                     modal.kind === "ask"
                       ? "Your question is ready for the next care conversation"
@@ -1745,6 +1690,17 @@ export default function App() {
                   ? "For Oliver or family: what would you like to talk about at the next visit?"
                   : "A thought, a feeling, or a little something you want to remember."}
               </p>
+              {modal.kind === "ask" && (
+                <label className="field">
+                  Send to
+                  <select name="receiver">
+                    <option>My whole care team</option>
+                    {team.map((t) => (
+                      <option key={t}>{t}</option>
+                    ))}
+                  </select>
+                </label>
+              )}
               <label className="field">
                 {modal.kind === "ask" ? "My question" : "My note"}
                 <textarea
@@ -1930,6 +1886,30 @@ export default function App() {
                     <Badge>{p.time}</Badge>
                     <h3>{p.title}</h3>
                     <p>{p.detail}</p>
+                    {p.medical === false ? (
+                      <button
+                        className="button secondary"
+                        aria-pressed={!!p.completed}
+                        onClick={() =>
+                          mutate(
+                            {
+                              type: "complete-personal",
+                              target: "priority",
+                              id: p.id,
+                            },
+                            "Personal plan item updated",
+                          )
+                        }
+                      >
+                        {p.completed ? "Undo completion" : "Mark done"}
+                        <Check size={16} />
+                      </button>
+                    ) : (
+                      <span className="medical-label">
+                        <LockKeyhole size={15} />
+                        Medical activity · Confirmed by your care team
+                      </span>
+                    )}
                   </div>
                 ))}
               <div className="notice">
@@ -1937,18 +1917,6 @@ export default function App() {
                 Times can change. Your bedside team will confirm the schedule.
               </div>
               <div className="dialog-actions">
-                <button
-                  className="button secondary"
-                  onClick={() => {
-                    mutate(
-                      { type: "view-plan" },
-                      "Plan marked as opened, without implying understanding or consent",
-                    );
-                    close();
-                  }}
-                >
-                  I’ve opened the plan <Check size={16} />
-                </button>
                 <button
                   className="button primary"
                   onClick={() => setModal({ kind: "ask" })}
@@ -1970,6 +1938,7 @@ export default function App() {
                       detail: get(f, "detail"),
                       time: get(f, "time"),
                       approved: f.get("approved") === "on",
+                      medical: f.get("nonmedical") !== "on",
                     },
                     "Priority saved to the shared data model",
                   );
@@ -2023,6 +1992,17 @@ export default function App() {
                 />
                 I approve this information for the patient & family view
               </label>
+              <label className="check-label">
+                <input
+                  type="checkbox"
+                  name="nonmedical"
+                  defaultChecked={
+                    state.priorities.find((p) => p.id === modal.id)?.medical ===
+                    false
+                  }
+                />
+                Nonmedical activity — family can mark done
+              </label>
               {primary("Save priority")}
             </form>
           )}
@@ -2054,6 +2034,7 @@ export default function App() {
                             id: a?.id || crypto.randomUUID(),
                             title: get(f, "title"),
                             owner: get(f, "owner"),
+                            medical: f.get("nonmedical") !== "on",
                             due: get(f, "due"),
                             status: get(f, "status") as Status,
                             priority: get(f, "priority"),
@@ -2091,11 +2072,21 @@ export default function App() {
                       placeholder="What needs to happen next?"
                     />
                   </label>
+                  <label className="check-label">
+                    <input
+                      type="checkbox"
+                      name="nonmedical"
+                      defaultChecked={a?.medical === false}
+                    />
+                    Nonmedical action — patient/guardian may check this off.
+                    Assigning to family shares the title, owner, date and
+                    status; internal notes stay private.
+                  </label>
                   <div className="form-grid">
                     <label className="field">
                       Owner
                       <select name="owner" defaultValue={a?.owner}>
-                        {team.map((t) => (
+                        {[...team, ...familyOwners].map((t) => (
                           <option key={t}>{t}</option>
                         ))}
                       </select>
@@ -2304,21 +2295,27 @@ export default function App() {
                     Record the discussion. These checks are not proof of
                     clinical comprehension or informed consent.
                   </p>
-                  {[
-                    "Family invited to share questions",
-                    "Plan explained in plain language",
-                    "Outstanding questions and follow-up recorded",
-                  ].map((q, i) => (
-                    <label className="questionnaire-check" key={q}>
-                      <input
-                        type="checkbox"
-                        name="answers"
-                        value={String(i)}
-                        defaultChecked={a.questionnaire.includes(String(i))}
-                      />
-                      <span>{q}</span>
-                    </label>
-                  ))}
+                  <div className="round-checklist">
+                    <div className="round-checklist-heading">
+                      <strong>Round checklist</strong>
+                      <strong>Discussed / recorded</strong>
+                    </div>
+                    {[
+                      "Family invited to share questions",
+                      "Plan explained in plain language",
+                      "Outstanding questions and follow-up recorded",
+                    ].map((q, i) => (
+                      <label className="questionnaire-check" key={q}>
+                        <input
+                          type="checkbox"
+                          name="answers"
+                          value={String(i)}
+                          defaultChecked={a.questionnaire.includes(String(i))}
+                        />
+                        <span>{q}</span>
+                      </label>
+                    ))}
+                  </div>
                   <p className="micro">
                     Save partial progress at any time. 3 checks = completed
                     questionnaire.
@@ -2613,6 +2610,9 @@ export default function App() {
                   <div className="question" key={q.id}>
                     <Badge tone="green">Answered</Badge>
                     <p>{q.text}</p>
+                    <small className="micro">
+                      To: {q.receiver || "My whole care team"}
+                    </small>
                     <p>{q.answer}</p>
                   </div>
                 ))}
